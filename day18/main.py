@@ -46,6 +46,18 @@ class Pair:
     def __str__(self):
         return f'[{self.left},{self.right}]'
 
+    def get_indexed_str(self):
+        left_is_pair = isinstance(self.left, Pair)
+        right_is_pair = isinstance(self.right, Pair)
+        if left_is_pair and right_is_pair:
+            return f'[{self.left.get_indexed_str()}:{self.left_idx},{self.right.get_indexed_str()}:{self.right_idx}]'
+        elif left_is_pair:
+            return f'[{self.left.get_indexed_str()}:{self.left_idx},{self.right}:{self.right_idx}]'
+        elif right_is_pair:
+            return f'[{self.left}:{self.left_idx},{self.right.get_indexed_str()}:{self.right_idx}]'
+        else:
+            return f'[{self.left}:{self.left_idx},{self.right}:{self.right_idx}]'
+
 
 def exploding_pair(snail_num: Pair, depth=0):
     if depth == 4:
@@ -174,6 +186,7 @@ def part1(snail_nums: List[Pair]):
     for i in range(1, len(snail_nums)):
         res = add(res, snail_nums[i])
         print(res)
+        print(res.get_indexed_str())
     pass
 
 
